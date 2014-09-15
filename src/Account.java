@@ -7,18 +7,18 @@ public class Account {
 	private double balance;
 	private double annualInterestRate;
 	private Date dateCreated;
-	
+
 	//No arg constructor
 	public Account(){
-		this (0,0);
+		//this (0,0);
 	}
-	
-	//Constructor do 
+
+	//Constructor 
 	public Account(int id, double balance){
 		this.id = id;
 		this.balance = balance;
 	}
-	
+
 	//Accessor methods
 	public int getId(){
 		return id;
@@ -26,13 +26,13 @@ public class Account {
 	public double getBalance(){
 		return balance;
 	}
-	public double getAIR(){
+	public double getAnnualInterestRate(){
 		return annualInterestRate;
 	}
 	public Date getDateCreated(){
 		return dateCreated;
 	}
-	
+
 	//Mutator methods
 	public void setId(int id){
 		this.id=id;
@@ -40,21 +40,31 @@ public class Account {
 	public void setBalance(double balance){
 		this.balance=balance;
 	}
-	public void setAIR(double annualInterestRate){
+	public void setAnnualInterestRate(double annualInterestRate){
 		this.annualInterestRate=annualInterestRate;
 	}
-	
+
 	public double getMonthlyInterstRate(){
 		return annualInterestRate/12;
 	}
-	
-	public double withdraw(double amount){
-		return balance-amount;
+
+	public void withdraw(double amount) throws
+	InsufficientFundsException
+	{
+		if(amount <= balance)
+		{
+			balance -= amount;
+		}
+		else
+		{
+			double needs = amount - balance;
+			throw new InsufficientFundsException(needs);
+		}
 	}
-	
-	public double deposit(double amount){
-		return balance+amount;
+
+	public void deposit(double amount){
+		balance+=amount;
 	}
-	
-	
+
+
 }
